@@ -88,6 +88,7 @@ export const addBookUser = (req: Request, res: Response) => {
 }
 
 export const updateBookUser = (req: Request, res: Response) => {
+  console.log(req.body);
   User.findOne({ email: req.body.email })
     .then((user: IUser | null) => {
       if (user) {
@@ -97,8 +98,9 @@ export const updateBookUser = (req: Request, res: Response) => {
             title: req.body.title || user.books[matchedBookIndex].title,
             author: req.body.author || user.books[matchedBookIndex].author,
             publishYear: req.body.publishYear || user.books[matchedBookIndex].publishYear,
-            description: req.body.description || user.books[matchedBookIndex].description,
+            description: req.body.description,
           };
+          console.log(updatedBook);
           user.books[matchedBookIndex] = updatedBook;
           User.updateOne(
             { email: req.body.email },
