@@ -30,7 +30,6 @@ export const bookSchema: Schema<IBook> = new Schema<IBook>(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
     },
   },
   {
