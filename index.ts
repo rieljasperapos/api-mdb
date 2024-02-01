@@ -19,8 +19,8 @@ app.use(cors({
 }));
 
 app.use(userRoutes);
-app.use(authRoutes);
 app.use(booksRoutes);
+app.use(authRoutes);
 
 app.listen(port, () => {
   console.log(`App is listening to port ${port}`);
