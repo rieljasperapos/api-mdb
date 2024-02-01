@@ -30,6 +30,6 @@ export const bookSchema: Schema<IBook> = new Schema<IBook>(
     }
   },
   {
-    timestamps: true,
+    timestamps: { createdAt: 'createdAt' },
   }
 );
