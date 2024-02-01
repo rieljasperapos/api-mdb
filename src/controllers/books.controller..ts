@@ -105,7 +105,7 @@ export const updateBookUser = (req: Request, res: Response) => {
           const currentDate = new Date();
           User.updateOne(
             { email: req.body.email },
-            { $set: { books: user.books, updatedAt: currentDate } },
+            { $set: { books: user.books, createdAt: user.books.createdAt, updatedAt: currentDate } },
             { runValidators: true, context: 'query' }
           )
             .then(() => {
