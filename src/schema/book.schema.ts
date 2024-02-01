@@ -27,9 +27,13 @@ export const bookSchema: Schema<IBook> = new Schema<IBook>(
     },
     image: {
       type: Buffer,
-    }
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
-    timestamps: { createdAt: 'createdAt' },
+    timestamps: { updatedAt: 'updatedAt' },
   }
 );

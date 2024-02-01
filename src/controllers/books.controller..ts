@@ -102,9 +102,10 @@ export const updateBookUser = (req: Request, res: Response) => {
           };
           console.log(updatedBook);
           user.books[matchedBookIndex] = updatedBook;
+          const currentDate = new Date();
           User.updateOne(
             { email: req.body.email },
-            { $set: { books: user.books } },
+            { $set: { books: user.books, updatedAt: currentDate } },
             { runValidators: true, context: 'query' }
           )
             .then(() => {
