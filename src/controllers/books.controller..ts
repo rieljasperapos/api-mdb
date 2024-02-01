@@ -99,14 +99,22 @@ export const updateBookUser = (req: Request, res: Response) => {
             author: req.body.author || user.books[matchedBookIndex].author,
             publishYear: req.body.publishYear || user.books[matchedBookIndex].publishYear,
             description: req.body.description,
+            createdAt: user.books[matchedBookIndex].createdAt,
+            updatedAt: new Date()
           };
-          console.log(updatedBook);
           user.books[matchedBookIndex] = updatedBook;
-          const currentDate = new Date();
           User.updateOne(
             { email: req.body.email },
-            { $set: { books: user.books, createdAt: user.books.createdAt, updatedAt: currentDate } },
-            { runValidators: true, context: 'query' }
+            { 
+              $set: {
+              "books.$[elem].title": updatedBook.title,
+              "books.$[elem].author": updatedBook.author,
+              "books.$[elem].publishYear": updatedBook.publishYear,
+              "books.$[elem].description": updatedBook.description,
+              "books.$[elem].updatedAt": updatedBook.updatedAt,
+              } 
+            },
+            { arrayFilters: [{ "elem.title": req.params.title }] }
           )
             .then(() => {
               res.send({
