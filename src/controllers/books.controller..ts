@@ -104,8 +104,7 @@ export const updateBookUser = (req: Request, res: Response) => {
           user.books[matchedBookIndex] = updatedBook;
           User.updateOne(
             { email: req.body.email },
-            { $set: { books: user.books } },
-            { new: true }
+            { $set: { books: user.books } }
           )
             .then(() => {
               res.send({
