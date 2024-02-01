@@ -181,19 +181,15 @@ export const addedBooksByMonthUser = (req: Request, res: Response) => {
   User.aggregate([
     {
       $match: {
-        email: req.body.email,
-      },
-    },
-    {
-      $unwind: '$books', // Deconstruct the books array so each book is treated as a separate document
-    },
-    {
-      $match: {
+        'email': req.body.email,
         'books.createdAt': {
           $gte: new Date(`${currentYear}-01-01T00:00:00.000Z`),
           $lt: new Date(`${currentYear + 1}-01-01T00:00:00.000Z`),
         },
       },
+    },
+    {
+      $unwind: '$books',
     },
     {
       $group: {
@@ -215,4 +211,5 @@ export const addedBooksByMonthUser = (req: Request, res: Response) => {
       res.status(500).send({ message: 'Internal Server Error' });
     });
 };
+
 
